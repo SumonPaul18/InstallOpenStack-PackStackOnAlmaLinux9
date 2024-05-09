@@ -8,104 +8,103 @@ Checking System Informations
     cat /etc/redhat-release
 ####
     grep -E ' svm | vmx' /proc/cpuinfo
+####
+    lsmod | grep kvm
+####
+    lscpu
+####
+    free -h
+####
+    lsblk
 
-lsmod | grep kvm
+#### Common Configuration 
 
-lscpu
+    hostnamectl set-hostname cloud
+####
+    ip a
+####
+    yum install nano -y
 
-free -h
+#### Need to Configure Static IP
 
-lsblk
+Check Network Card Info file
+####
+    ls /etc/sysconfig/network-scripts/
 
-#Configure Common Setup
+> Note: If OS are Almalinux 9 may be couldn't find NIC file in network-scripts folder. 
+#### Solutions for thats problem:
 
-hostnamectl set-hostname cloud
+Enable CRB  Repository
+####
+    dnf config-manager --set-enabled crb
 
-ip a
+Install Epel and Epel Next on Almalinux 9
+####
+    dnf install epel-release -y
 
-yum install nano -y
+Working On AlmaLinux 9
+####
+    dnf install centos-release-openstack-yoga -y
 
-#Need to Configure Static IP
+    yum clean all
 
-#Check Network Card Info file
+Install network-scripts package
+####
+    yum install network-scripts -y
 
-ls /etc/sysconfig/network-scripts/
+Enable/Start Network Service
+####
+    systemctl status network
+    systemctl start network
+    systemctl enable network
 
-#Note: If OS are Almalinux 9 may be couldn't find NIC file in network-scripts folder. 
-#This problem for solutions:
+    systemctl restart network
 
-#Enable CRB  Repository
+Check Network Card Info file
+####
+    ls /etc/sysconfig/network-scripts/
+####
+    nano /etc/sysconfig/network-scripts/ifcfg-enp1s0
+####
 
-dnf config-manager --set-enabled crb
+    HWADRR=1c:1b:0d:8b:c6:ba
+    NM_CONTROLLED=no
+    BOOTPROTO=static
+    ONBOOT=yes
+    IPADDR=192.168.0.50
+    PREFIX=24
+    GATEWAY=192.168.0.1
+    DNS1=8.8.8.8
+    DNS2=8.8.4.4
+    DEVICE=enp1s0
+####
+    nmcli connection up enp1s0
+####
+    ip a s enp1s0
+####
+    systemctl restart NetworkManager
+####
+    ping google.com
+####
+    cp /etc/sysconfig/network-scripts/ifcfg-enp1s0 /etc/sysconfig/network-scripts/ifcfg-enp1s0.bak
+####
+    cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
 
-#Install Epel and Epel Next on Almalinux 9
+Edit Hosts file:
+####
+    echo "192.168.0.50 cloud.paulco.xyz cloud" >> /etc/hosts
 
-dnf install epel-release -y
+Check SELinux
+####
+    getenforce
 
-#Working On AlmaLinux 9
+Disable SELinux
+####
+    sed -i 's/^SELINUX=.*/SELINUX=disabled/g' /etc/selinux/config
 
-dnf install centos-release-openstack-yoga -y
-
-yum clean all
-
-# Install network-scripts package
-
-yum install network-scripts -y
-
-# Enable/Start Network Service
-
-systemctl status network
-systemctl start network
-systemctl enable network
-
-systemctl restart network
-
-#Check Network Card Info file
-
-ls /etc/sysconfig/network-scripts/
-
-nano /etc/sysconfig/network-scripts/ifcfg-enp1s0
-
-
-HWADRR=1c:1b:0d:8b:c6:ba
-NM_CONTROLLED=no
-BOOTPROTO=static
-ONBOOT=yes
-IPADDR=192.168.0.50
-PREFIX=24
-GATEWAY=192.168.0.1
-DNS1=8.8.8.8
-DNS2=8.8.4.4
-DEVICE=enp1s0
-
-nmcli connection up enp1s0
-
-ip a s enp1s0
-
-systemctl restart NetworkManager
-
-ping google.com
-
-cp /etc/sysconfig/network-scripts/ifcfg-enp1s0 /etc/sysconfig/network-scripts/ifcfg-enp1s0.bak
-
-cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
-
-#Edit Hosts file:
-echo "192.168.0.50 cloud.paulco.xyz cloud" >> /etc/hosts
-
-#Check SELinux
-
-getenforce
-
-#Disable SELinux
-
-#setenforce 0
-
-sed -i 's/^SELINUX=.*/SELINUX=disabled/g' /etc/selinux/config
-
-# Disable Firewalld
-systemctl disable firewalld
-systemctl stop firewalld
+Disable Firewalld
+    systemctl disable firewalld
+    systemctl stop firewalld
 
 # Disable/Stop NetworkManager
 systemctl status NetworkManager
