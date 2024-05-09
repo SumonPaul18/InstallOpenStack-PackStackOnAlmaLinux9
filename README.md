@@ -2,12 +2,12 @@
 # Install OpenStack-PackStack on AlmaLinux 9
 
 Checking System Informations
-#
+####
     hostnamectl
-#
+####
     cat /etc/redhat-release
-
-grep -E ' svm | vmx' /proc/cpuinfo
+####
+    grep -E ' svm | vmx' /proc/cpuinfo
 
 lsmod | grep kvm
 
