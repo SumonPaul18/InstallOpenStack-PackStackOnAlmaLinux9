@@ -103,19 +103,21 @@ Disable SELinux
     sed -i 's/^SELINUX=.*/SELINUX=disabled/g' /etc/selinux/config
 
 Disable Firewalld
+####
     systemctl disable firewalld
     systemctl stop firewalld
 
-# Disable/Stop NetworkManager
-systemctl status NetworkManager
-systemctl disable NetworkManager
-systemctl stop NetworkManager
-
-#systemctl restart NetworkManager
-
-ifup enp0s3
-
-#ifdown enp0s3
+Disable/Stop NetworkManager
+####
+    systemctl status NetworkManager
+    systemctl disable NetworkManager
+    systemctl stop NetworkManager
+####
+    ~~ systemctl restart NetworkManager
+####
+    ifup enp0s3
+####
+    ~~ ifdown enp0s3
 
 #systemctl mask NetworkManager.service
 #systemctl stop NetworkManager.service
