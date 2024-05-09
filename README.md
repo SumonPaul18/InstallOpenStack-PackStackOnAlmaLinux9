@@ -272,11 +272,11 @@ Now Download Cirros image for OpenStack Instance OS
 ####
     #openstack image delete cirros
 
-++++++++++++++++++++++++++++++++
-Remove or Uninstall OpenStack  +
-++++++++++++++++++++++++++++++++
-#If you need to uninstall openstack
--------------------------------------
-#yum -y remove openstack-*
 
-++++++++++++++++++++++++++++++++ Finish ++++++++++++++++++++++++++++++++
+#### Remove or Uninstall OpenStack
+
+If you need to uninstall openstack
+####
+    #yum -y remove openstack-*
+
+# Finish 
