@@ -218,7 +218,9 @@ Run bellow command without #
 <details> 
 <summary> Run, Packstack Command With Or Not WithOut Demo Project </summary>
 
+####
 Install OpenStack With Demo
+
 ####
     #packstack --allinone
 Install OpenStack Without Demo Project
@@ -237,44 +239,38 @@ The generated manifests are available at:
 
 ## Installation Completed Successfully 
 
-++++++++++++++++++++++++++++++++++
-#After Installation Complete     +
-++++++++++++++++++++++++++++++++++
-#Access OpenStack from CLI / Horizon Dashboard
-------------------------------------------------
-source ~/keystonerc_admin
 
-openstack service list
+## After Installation Complete
 
-#To access Horizon Dashboard use the URL: 
-#http://ServerIPAddress/dashboard.
+#### Access OpenStack from CLI / Horizon Dashboard
 
-http://192.168.0.50/dashboard
+    source ~/keystonerc_admin
+####
+    openstack service list
 
-#Login Credentials in Here:
+To access Horizon Dashboard use the URL: 
+####   
+    http://ServerIPAddress/dashboard.
+    http://192.168.0.50/dashboard
 
-cat ~/keystonerc_admin
+#### Login Credentials in Here:
 
-++++++++++++++++++++++++++++++++
-Configuration OpenStack
-++++++++++++++++++++++++++++++++
-............................
-##Now Download Cirros image 
-............................
-
-wget http://download.cirros-cloud.net/0.5.1/cirros-0.5.1-x86_64-disk.img
-
-..................................
-Upload-Create Image on OpenStack
-..................................
-
-openstack image create --disk-format qcow2 --container-format bare --public --file cirros-0.5.1-x86_64-disk.img  cirros
-
-openstack image list
-
-openstack image delete cirros
+    cat ~/keystonerc_admin
 
 
+#### Configuration OpenStack
+
+Now Download Cirros image for OpenStack Instance OS
+####
+    wget http://download.cirros-cloud.net/0.5.1/cirros-0.5.1-x86_64-disk.img
+
+#### Upload-Create Image on OpenStack
+
+    openstack image create --disk-format qcow2 --container-format bare --public --file cirros-0.5.1-x86_64-disk.img  cirros
+####
+    openstack image list
+####
+    #openstack image delete cirros
 
 ++++++++++++++++++++++++++++++++
 Remove or Uninstall OpenStack  +
