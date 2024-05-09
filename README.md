@@ -214,8 +214,10 @@ Take Copy the answes file
 Run bellow command without #
 ####
     packstack --answer-file #/root/answers.txt | tee Openstack-Installation-log.txt
+
 <deatils> 
 <summary> Run, Packstack Command With Or Not WithOut Demo Project </summary>
+
 Install OpenStack With Demo
 ####
     #packstack --allinone
@@ -226,14 +228,14 @@ Install OpenStack Without Demo Project
 
 #### View Installation Log
 The installation log file is available at: 
-
+####
     tail -f /var/tmp/packstack/latest/openstack-setup.log
 ##### OR 
 The generated manifests are available at: 
 ####
     tail -f /var/tmp/packstack/20230119-111007-GkD8Cn/manifests
 
- **** Installation Completed Successfully ******
+## Installation Completed Successfully 
 
 ++++++++++++++++++++++++++++++++++
 #After Installation Complete     +
