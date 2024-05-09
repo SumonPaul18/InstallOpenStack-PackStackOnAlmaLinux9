@@ -112,54 +112,50 @@ Disable/Stop NetworkManager
     systemctl status NetworkManager
     systemctl disable NetworkManager
     systemctl stop NetworkManager
-<!-- systemctl restart NetworkManager -->
+
 ####
     ifup enp0s3
 
-<! -- ifdown enp0s3 -->
+####
+    yum autoremove epel-release
+####
+    yum autoremove openstack-packstack
+####
+    yum clean all
+####
+    yum repolist
+####
+    yum update -y && yum upgrade -y
+####
+    reboot
 
-#systemctl mask NetworkManager.service
-#systemctl stop NetworkManager.service
-#systemctl disable NetworkManager.service
-#systemctl list-unit-files | grep NetworkManager
+#### Install OpenStack-PackStack Repository
 
-++++++++++++++++++++++++++++++++++++
+Setup CRB Config-Manager
+####
+    dnf config-manager --set-enabled crb
 
-yum autoremove epel-release
+Now, Install OpenStack-Yoga Version Package
+####
+    dnf install centos-release-openstack-yoga
 
-yum autoremove openstack-packstack
- 
-yum clean all
-
-yum repolist
-
-yum update -y && yum upgrade -y
-
-reboot
-
-++++++++++++++++++++++++++++++++++++++++++++++++++
-+ Install & Configure OpenStack-PackStack        +
-++++++++++++++++++++++++++++++++++++++++++++++++++
-#For AlmaLinux 9
-
-dnf config-manager --set-enabled crb
-
-#Working On AlmaLinux 9
-dnf install centos-release-openstack-yoga
-
-#Install Openstack-Packstack Package
-
-#dnf install -y openstack-packstack
-
-yum install -y openstack-packstack
-
-yum repolist
-
-yum update -y
-
-packstack --version
-
-packstack --help
+#### Install Openstack-Packstack Package
+If We Can Use yum Command for Package-Manager
+####
+    yum install -y openstack-packstack
+If We Can Use dnf Command for Package-Manager
+####
+    dnf install -y openstack-packstack
+#### Verifying YUM Repolist
+    yum repolist
+#### Update
+    yum update -y
+Verifying PackStack Version
+#### 
+    packstack --version
+Verifying PackStack Help or Manual
+#### 
+    packstack --help
 
 ++++++++++++++++ Generate Answers +++++++++++++
 
