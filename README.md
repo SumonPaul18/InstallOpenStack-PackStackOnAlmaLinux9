@@ -113,7 +113,7 @@ Disable/Stop NetworkManager
     systemctl disable NetworkManager
     systemctl stop NetworkManager
 ####
-    ~~systemctl restart NetworkManager~~
+    ~systemctl restart NetworkManager~
 ####
     ifup enp0s3
 ####
