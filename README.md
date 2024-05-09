@@ -117,7 +117,7 @@ Disable/Stop NetworkManager
 ####
     ifup enp0s3
 ####
-~~ifdown enp0s3
+~ifdown enp0s3~
 
 #systemctl mask NetworkManager.service
 #systemctl stop NetworkManager.service
