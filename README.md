@@ -184,7 +184,7 @@ Take Copy the answes file
 
     nano answers.txt
 
->>Change to y/n
+####
 
     CONFIG_NTP_SERVERS=0.asia.pool.ntp.org,1.asia.pool.ntp.org,2.asia.pool.ntp.org,3.asia.pool.ntp.org
 
@@ -215,7 +215,7 @@ Run bellow command without #
 ####
     packstack --answer-file #/root/answers.txt | tee Openstack-Installation-log.txt
 
-<deatils> 
+<details> 
 <summary> Run, Packstack Command With Or Not WithOut Demo Project </summary>
 
 Install OpenStack With Demo
@@ -224,7 +224,7 @@ Install OpenStack With Demo
 Install OpenStack Without Demo Project
 ####
     #packstack --allinone --provision-demo=n
-</deatils>  
+</details>  
 
 #### View Installation Log
 The installation log file is available at: 
