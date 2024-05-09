@@ -140,10 +140,10 @@ Now, Install OpenStack-Yoga Version Package
     dnf install centos-release-openstack-yoga
 
 #### Install Openstack-Packstack Package
-If We Can Use yum Command for Package-Manager
+
 ####
     yum install -y openstack-packstack
-If We Can Use dnf Command for Package-Manager
+OR
 ####
     dnf install -y openstack-packstack
 #### Verifying YUM Repolist
@@ -157,96 +157,81 @@ Verifying PackStack Help or Manual
 #### 
     packstack --help
 
-++++++++++++++++ Generate Answers +++++++++++++
+#### Now, Generate Answers file for Install and Post Configured OpenStack PackStack
 
-+++++++++++++++++++++++++++++++++++++++++++++++
-+ Pre-Installation with Generate Answers file +
-+++++++++++++++++++++++++++++++++++++++++++++++
+#### Pre-Installation with Generate Answers file
 
-packstack --os-neutron-ml2-tenant-network-types=vxlan \
---os-neutron-ovs-bridge-interfaces=br-ex:enp1s0 \
---os-neutron-ml2-mechanism-drivers=openvswitch \
---os-neutron-ml2-type-drivers=vxlan,flat \
---os-neutron-l2-agent=openvswitch \
---keystone-admin-passwd=openstack \
---provision-demo=n \
---os-heat-install=y \
---gen-answer-file /root/answers.txt
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++  
+    packstack --os-neutron-ml2-tenant-network-types=vxlan \
+    --os-neutron-ovs-bridge-interfaces=br-ex:enp1s0 \
+    --os-neutron-ml2-mechanism-drivers=openvswitch \
+    --os-neutron-ml2-type-drivers=vxlan,flat \
+    --os-neutron-l2-agent=openvswitch \
+    --keystone-admin-passwd=openstack \
+    --provision-demo=n \
+    --os-heat-install=y \
+    --gen-answer-file /root/answers.txt
+ 
+#### Custom Installation After Generate Answers file
 
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++  
-##Custom Installation After Generate Answers file##
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    packstack --gen-answer-file /root/answers.txt
 
-packstack --gen-answer-file /root/answers.txt
+Take Copy the answes file
 
-#Take Copy the answes file
+    cp answers.txt copy.answers.txt
 
-cp answers.txt copy.answers.txt
 
-++++++++++++++++++++++++++++++++++++++++++++++++
-##Important: Edit the file whats we install 
-++++++++++++++++++++++++++++++++++++++++++++++++
+#### Important: Edit the file whats we install 
 
-nano answers.txt
+    nano answers.txt
 
 >>Change to y/n
 
-CONFIG_NTP_SERVERS=0.asia.pool.ntp.org,1.asia.pool.ntp.org,2.asia.pool.ntp.org,3.asia.pool.ntp.org
+    CONFIG_NTP_SERVERS=0.asia.pool.ntp.org,1.asia.pool.ntp.org,2.asia.pool.ntp.org,3.asia.pool.ntp.org
 
-CONFIG_CONTROLLER_HOST=192.168.10.10
+    CONFIG_CONTROLLER_HOST=192.168.10.10
 
-CONFIG_COMPUTE_HOSTS=192.168.10.10
+    CONFIG_COMPUTE_HOSTS=192.168.10.10
 
-CONFIG_NETWORK_HOSTS=192.168.10.10
+    CONFIG_NETWORK_HOSTS=192.168.10.10
 
-CONFIG_STORAGE_HOST=192.168.10.10
+    CONFIG_STORAGE_HOST=192.168.10.10
 
-CONFIG_KEYSTONE_ADMIN_PW=openstack
-++++++++++++++++++++++++++++++++++++++++++++++++
-+++++++++++++++++ Networking +++++++++++++++++++
-#search and change Bridge
-CONFIG_NEUTRON_OVS_BRIDGE_IFACES=br-ex:enp0s3
-CONFIG_NEUTRON_ML2_MECHANISM_DRIVERS=openvswitch
-CONFIG_NEUTRON_L2_AGENT=openvswitch
+    CONFIG_KEYSTONE_ADMIN_PW=openstack
 
-# Disable Nagios
-CONFIG_NAGIOS_INSTALL=n
+    # Networking 
+    #search and change Bridge
+    CONFIG_NEUTRON_OVS_BRIDGE_IFACES=br-ex:enp0s3
+    CONFIG_NEUTRON_ML2_MECHANISM_DRIVERS=openvswitch
+    CONFIG_NEUTRON_L2_AGENT=openvswitch
 
-##Disable the demo provisioning
-CONFIG_PROVISION_DEMO=n
+    # Disable Nagios
+    CONFIG_NAGIOS_INSTALL=n
 
-++++++++++++++++++++++++++++++++++
-##Installation OpenStack##
-++++++++++++++++++++++++++++++++++
-#Run bellow command without #
+    # Disable the demo provisioning
+    CONFIG_PROVISION_DEMO=n
 
-packstack --answer-file #/root/answers.txt | tee Openstack-Installation-log.txt
+#### Installation OpenStack
+Run bellow command without #
+####
+    packstack --answer-file #/root/answers.txt | tee Openstack-Installation-log.txt
+<deatils> 
+<summary> Run, Packstack Command With Or Not WithOut Demo Project </summary>
+Install OpenStack With Demo
+####
+    #packstack --allinone
+Install OpenStack Without Demo Project
+####
+    #packstack --allinone --provision-demo=n
+</deatils>  
 
-++++++++++++++++++++++++++++++++++
+#### View Installation Log
+The installation log file is available at: 
 
-## View Installation Log ##
-
-# The installation log file is available at: 
-
-tail -f /var/tmp/packstack/latest/openstack-setup.log
- 
-# The generated manifests are available at: 
-
-tail -f /var/tmp/packstack/20230119-111007-GkD8Cn/manifests
-
-++++++++++++++++++++++++++++++++++
-
-++++++++++++++++++++++++++++++++++
-#Install OpenStack WithOut Demo
-++++++++++++++++++++++++++++++++++
-#packstack --allinone --provision-demo=n
-
-++++++++++++++++++++++++++++++++++
-#Install OpenStack With Demo
-++++++++++++++++++++++++++++++++++
-#packstack --allinone
-
+    tail -f /var/tmp/packstack/latest/openstack-setup.log
+##### OR 
+The generated manifests are available at: 
+####
+    tail -f /var/tmp/packstack/20230119-111007-GkD8Cn/manifests
 
  **** Installation Completed Successfully ******
 
