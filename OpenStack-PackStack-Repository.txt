@@ -1,0 +1,45 @@
+# OpenStack packages for RHEL and CentOS
+
+### Enable PowerTools/CRB repository:
+    ### CentOS Stream 9
+    # dnf install dnf-plugins-core
+    # dnf config-manager --set-enabled crb
+
+### For CentOS Stream 9:
+$ sudo dnf install https://www.rdoproject.org/repos/rdo-release.el9.rpm
+
+
+# dnf install centos-release-openstack-zed
+# ### 2023.1 Antelope
+# dnf install centos-release-openstack-antelope
+# ### 2023.2 Bobcat
+# dnf install centos-release-openstack-bobcat
+
+### Finalize the installation
+    dnf upgrade
+
+### Enable the OpenStack repository
+
+When installing the Victoria release, run:
+
+# yum install centos-release-openstack-victoria
+# yum config-manager --set-enabled powertools
+When installing the Ussuri release, run:
+
+# yum install centos-release-openstack-ussuri
+# yum config-manager --set-enabled powertools
+When installing the Train release, run:
+
+# yum install centos-release-openstack-train
+When installing the Stein release, run:
+
+# yum install centos-release-openstack-stein
+When installing the Rocky release, run:
+
+# yum install centos-release-openstack-rocky
+When installing the Queens release, run:
+
+# yum install centos-release-openstack-queens
+When installing the Pike release, run:
+
+# yum install centos-release-openstack-pike
