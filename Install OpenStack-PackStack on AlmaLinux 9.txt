@@ -323,6 +323,22 @@ ovs-vsctl show
 
 #ovs-vsctl add-port br-ex eno1; systemctl restart network.service
 
+#######################
+# Manage OpenVSwitch  #
+#######################
+
+yum install openvswitch libibverbs -y
+
+or
+
+systemctl enable --now openvswitch
+
+systemctl status openvswitch
+
+systemctl restart openvswitch
+
+ovs-vsctl -V
+
 
 ##########################
 #Configuration OpenStack #
