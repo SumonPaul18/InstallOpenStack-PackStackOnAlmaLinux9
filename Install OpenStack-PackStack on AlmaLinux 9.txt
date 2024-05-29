@@ -275,9 +275,40 @@ http://192.168.0.50/dashboard
 
 cat ~/keystonerc_admin
 
-++++++++++++++++++++++++++++++++
-Configuration OpenStack
-++++++++++++++++++++++++++++++++
+##########################
+#Configuration OpenStack #
+##########################
+################################################
+# Configure Networking in OpenStack by Cli     #
+################################################
+#let’s first create external network in admin tenant using following neutron commands
+
+#Execute keystonerc_admin file
+source keystonerc_admin
+
+#create public network under Admin section and public subnet here network is must lan network or it could be openstack server network ip which connected by physical network.
+
+neutron net-create wan-network --provider:network_type flat --provider:physical_network extnet --router:external
+
+##Now add a subnet of your flat network to external network by running following neutron command
+
+neutron subnet-create --name public_subnet --enable_dhcp=True --allocation-pool=start=192.168.102.210,end=192.168.102.230 --gateway=192.168.100.1 wan-network 192.168.100.0/22
+
+#Create a router by executing the following neutron command and set its gateway using external network
+
+neutron router-create wan-router
+
+neutron router-gateway-set wan-router external_network
+
+#Create private network and attach a subnet to it. Run the following neutron command:
+
+neutron net-create lan-network
+
+neutron subnet-create --name lan_subnet lan-network 10.0.0.0/24
+
+#Add pvt_net interface to router "wan-router" using beneath neutron command:
+
+neutron router-interface-add wan-router lan_subnet
 ............................
 ##Now Download Cirros image 
 ............................
