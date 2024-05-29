@@ -162,7 +162,7 @@ Verifying PackStack Help or Manual
 #### Pre-Installation with Generate Answers file
 
     packstack --os-neutron-ml2-tenant-network-types=vxlan \
-    --os-ntp-servers=0.asia.pool.ntp.org,1.asia.pool.ntp.org,2.asia.pool.ntp.org,3.asia.pool.ntp.org \
+    --ntp-servers=0.asia.pool.ntp.org,1.asia.pool.ntp.org,2.asia.pool.ntp.org,3.asia.pool.ntp.org \
     --os-neutron-ovs-bridge-interfaces=br-ex:enp1s0 \
     --os-neutron-ml2-mechanism-drivers=openvswitch \
     --os-neutron-ml2-type-drivers=vxlan,flat \
@@ -171,7 +171,10 @@ Verifying PackStack Help or Manual
     --provision-demo=n \
     --os-heat-install=y \
     --gen-answer-file /root/answers.txt
- 
+
+<details> 
+<summary> Run, Packstack Command With Or Not WithOut Demo Project </summary>
+
 #### Custom Installation After Generate Answers file
 
     packstack --gen-answer-file /root/answers.txt
@@ -210,6 +213,8 @@ Take Copy the answes file
 
     # Disable the demo provisioning
     CONFIG_PROVISION_DEMO=n
+
+</details>  
 
 #### Installation OpenStack
 Run bellow command without #
