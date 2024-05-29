@@ -67,10 +67,10 @@ systemctl restart network
 
 ls /etc/sysconfig/network-scripts/
 
-nano /etc/sysconfig/network-scripts/ifcfg-enp1s0
+nano /etc/sysconfig/network-scripts/ifcfg-enp2s0
 
 
-HWADRR=1c:1b:0d:8b:c6:ba
+HWADRR=1c:1b:0d:2b:12:93
 NM_CONTROLLED=no
 BOOTPROTO=static
 ONBOOT=yes
@@ -79,19 +79,19 @@ PREFIX=24
 GATEWAY=192.168.0.1
 DNS1=8.8.8.8
 DNS2=8.8.4.4
-DEVICE=enp1s0
+DEVICE=enp2s0
 
-nmcli connection up enp1s0
+nmcli connection up enp2s0
 
-ip a s enp1s0
+ip a s enp2s0
 
 systemctl restart NetworkManager
 
 ping google.com
 
-cp /etc/sysconfig/network-scripts/ifcfg-enp1s0 /etc/sysconfig/network-scripts/ifcfg-enp1s0.bak
+cp /etc/sysconfig/network-scripts/ifcfg-enp2s0 /etc/sysconfig/network-scripts/ifcfg-enp2s0.bak
 
-cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
+cat /etc/sysconfig/network-scripts/ifcfg-enp2s0
 
 #Edit Hosts file:
 echo "192.168.0.50 cloud.paulco.xyz cloud" >> /etc/hosts
@@ -171,7 +171,8 @@ packstack --help
 +++++++++++++++++++++++++++++++++++++++++++++++
 
 packstack --os-neutron-ml2-tenant-network-types=vxlan \
---os-neutron-ovs-bridge-interfaces=br-ex:enp1s0 \
+--ntp-servers=0.asia.pool.ntp.org,1.asia.pool.ntp.org,2.asia.pool.ntp.org,3.asia.pool.ntp.org \
+--os-neutron-ovs-bridge-interfaces=br-ex:enp2s0 \
 --os-neutron-ml2-mechanism-drivers=openvswitch \
 --os-neutron-ml2-type-drivers=vxlan,flat \
 --os-neutron-l2-agent=openvswitch \
@@ -228,7 +229,7 @@ CONFIG_PROVISION_DEMO=n
 ++++++++++++++++++++++++++++++++++
 #Run bellow command without #
 
-packstack --answer-file #/root/answers.txt | tee Openstack-Installation-log.txt
+packstack --answer-file #/root/answers.txt | tee openstack-Installation-log.txt
 
 ++++++++++++++++++++++++++++++++++
 
