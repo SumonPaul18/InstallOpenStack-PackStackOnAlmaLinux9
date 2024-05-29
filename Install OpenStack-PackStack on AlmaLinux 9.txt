@@ -392,14 +392,24 @@ ip netns show
 wget http://download.cirros-cloud.net/0.5.1/cirros-0.5.1-x86_64-disk.img
 
 ..................................
-Upload-Create Image on OpenStack
+Upload Image on OpenStack Cloud
 ..................................
 
 openstack image create --disk-format qcow2 --container-format bare --public --file cirros-0.5.1-x86_64-disk.img  cirros
 
 openstack image list
 
-openstack image delete cirros
+#Ubuntu Cloud Images Link
+
+https://cloud-images.ubuntu.com/
+
+wget http://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
+
+openstack image create --disk-format qcow2 --container-format bare --public --file jammy-server-cloudimg-amd64.img ubuntu-jammy
+
+#wget https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-arm64.img
+
+#openstack image delete cirros
 
 
 
