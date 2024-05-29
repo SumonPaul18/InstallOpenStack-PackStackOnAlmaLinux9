@@ -285,12 +285,12 @@ cat ~/keystonerc_admin
 
 #cp /etc/sysconfig/network-scripts/ifcfg-eno1 /etc/sysconfig/network-scripts/main-eno1
 
-cp /etc/sysconfig/network-scripts/ifcfg-eno1 /etc/sysconfig/network-scripts/ifcfg-br-ex
+cp /etc/sysconfig/network-scripts/ifcfg-enp0s9 /etc/sysconfig/network-scripts/ifcfg-br-ex
 
-nano /etc/sysconfig/network-scripts/ifcfg-enp1s0
+nano /etc/sysconfig/network-scripts/ifcfg-enp0s9
 
-DEVICE=enp0s3
-NAME=enp0s3
+DEVICE=enp0s9
+NAME=enp0s9
 DEVICETYPE=ovs
 TYPE=OVSPort
 OVS_BRIDGE=br-ex
@@ -299,7 +299,7 @@ BOOTPROTO=none
 
 nano /etc/sysconfig/network-scripts/ifcfg-br-ex
 
-HWADRR=08:00:27:1e:54:41
+HWADRR=08:00:27:c6:34:51
 NM_CONTROLLED=no
 ONBOOT=yes
 IPADDR=10.0.2.40
@@ -338,6 +338,12 @@ systemctl status openvswitch
 systemctl restart openvswitch
 
 ovs-vsctl -V
+
+systemctl restart openstack* neutron* libvirtd
+
+systemctl status openstack* neutron* libvirtd
+
+systemctl restart neutron*
 
 
 ##########################
