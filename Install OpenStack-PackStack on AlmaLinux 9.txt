@@ -275,9 +275,63 @@ http://192.168.0.50/dashboard
 
 cat ~/keystonerc_admin
 
+###################################
+# After Installation Complete     #
+###################################
+#After Installation Completed Configuration OVS Bridge Networking
+#Create an external OVS bridge on your interface
+
+## Move your static route for configured interface to br-ex.
+
+#cp /etc/sysconfig/network-scripts/ifcfg-eno1 /etc/sysconfig/network-scripts/main-eno1
+
+cp /etc/sysconfig/network-scripts/ifcfg-eno1 /etc/sysconfig/network-scripts/ifcfg-br-ex
+
+nano /etc/sysconfig/network-scripts/ifcfg-enp1s0
+
+DEVICE=enp0s3
+NAME=enp0s3
+DEVICETYPE=ovs
+TYPE=OVSPort
+OVS_BRIDGE=br-ex
+ONBOOT=yes
+BOOTPROTO=none
+
+nano /etc/sysconfig/network-scripts/ifcfg-br-ex
+
+HWADRR=08:00:27:1e:54:41
+NM_CONTROLLED=no
+ONBOOT=yes
+IPADDR=10.0.2.40
+PREFIX=24
+GATEWAY=10.0.2.2
+DEVICE=br-ex
+NAME=br-ex
+DEVICETYPE=ovs
+OVSBOOTPROTO=static
+TYPE=OVSBridge
+OVS_EXTRA="set bridge br-ex fail_mode=standalone"
+
+
+systemctl restart network.service
+
+ovs-vsctl show
+
+#ovs-vsctl add-br br-ex
+
+## Add the network physical interface to the br-ex bridge in Open vSwitch.
+
+#ovs-vsctl add-port br-ex eno1; systemctl restart network.service
+
+
 ##########################
 #Configuration OpenStack #
 ##########################
+
+
+
+
+
 ################################################
 # Configure Networking in OpenStack by Cli     #
 ################################################
