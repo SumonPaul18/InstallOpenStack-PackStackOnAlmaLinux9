@@ -173,9 +173,7 @@ Verifying PackStack Help or Manual
     --gen-answer-file /root/answers.txt
 
 <details> 
-<summary> Run, Packstack Command With Or Not WithOut Demo Project </summary>
-
-#### Custom Installation After Generate Answers file
+<summary> Custom Installation After Generate Answers file </summary>
 
     packstack --gen-answer-file /root/answers.txt
 
