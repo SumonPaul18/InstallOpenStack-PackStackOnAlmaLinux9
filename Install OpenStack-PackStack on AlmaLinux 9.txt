@@ -358,34 +358,33 @@ systemctl restart neutron*
 ################################################
 # Configure Networking in OpenStack by Cli     #
 ################################################
-#let’s first create external network in admin tenant using following neutron commands
+##Create OpenStack private Network.
 
-#Execute keystonerc_admin file
-source keystonerc_admin
+openstack network create private
 
-#create public network under Admin section and public subnet here network is must lan network or it could be openstack server network ip which connected by physical network.
+##Create subnet for private Network.
 
-neutron net-create wan-network --provider:network_type flat --provider:physical_network extnet --router:external
+openstack subnet create --network private --allocation-pool start=10.1.1.50,end=10.1.1.200 --dns-nameserver 8.8.8.8 --subnet-range 10.1.1.0/24 private_subnet
 
-##Now add a subnet of your flat network to external network by running following neutron command
+##Create a public network.
 
-neutron subnet-create --name public_subnet --enable_dhcp=True --allocation-pool=start=192.168.102.210,end=192.168.102.230 --gateway=192.168.100.1 wan-network 192.168.100.0/22
+openstack network create --provider-network-type flat --provider-physical-network extnet --external public
 
-#Create a router by executing the following neutron command and set its gateway using external network
+##Create subnet for public Network.
 
-neutron router-create wan-router
+openstack subnet create --network public --allocation-pool start=192.168.0.100,end=192.168.0.200 --no-dhcp --subnet-range 192.168.0.0/24 public_subnet
 
-neutron router-gateway-set wan-router external_network
+##Add a new router and configure router interfaces.
 
-#Create private network and attach a subnet to it. Run the following neutron command:
+openstack router create --no-ha core-router
 
-neutron net-create lan-network
+##Add Interface in Router
 
-neutron subnet-create --name lan_subnet lan-network 10.0.0.0/24
+openstack router set --external-gateway public core-router
 
-#Add pvt_net interface to router "wan-router" using beneath neutron command:
+openstack router add subnet core-router private_subnet
 
-neutron router-interface-add wan-router lan_subnet
+ip netns show
 ............................
 ##Now Download Cirros image 
 ............................
