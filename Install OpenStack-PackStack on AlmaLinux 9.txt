@@ -374,7 +374,7 @@ openstack network create --provider-network-type flat --provider-physical-networ
 
 ##Create subnet for public Network.
 
-openstack subnet create --network public --allocation-pool start=192.168.0.100,end=192.168.0.200 --no-dhcp --subnet-range 192.168.0.0/24 public_subnet
+openstack subnet create --network public --allocation-pool start=192.168.0.100,end=192.168.0.200 --no-dhcp --dns-nameserver 8.8.8.8 --subnet-range 192.168.0.0/24 public_subnet
 
 ##Add a new router and configure router interfaces.
 
