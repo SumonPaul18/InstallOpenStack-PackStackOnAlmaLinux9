@@ -27,6 +27,7 @@ hostnamectl set-hostname cloud
 ip a
 
 yum install nano -y
+dnf install wget -y
 
 #Need to Configure Static IP
 
