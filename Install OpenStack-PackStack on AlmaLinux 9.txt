@@ -359,6 +359,7 @@ systemctl restart neutron*
 ################################################
 # Configure Networking in OpenStack by Cli     #
 ################################################
+
 ##Create OpenStack private Network.
 
 openstack network create private
